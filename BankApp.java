@@ -320,6 +320,7 @@ public class BankApp extends Frame {
                 admin = (Admin) bank.createAccount(name, email, password, "Admin");
                 registerDialog.dispose();
                 showAdminMenu();
+                showMessage("Account Create Successfully.");
             }
         });
 
@@ -364,6 +365,7 @@ public class BankApp extends Frame {
                         currentUser = (Account) account;
                         loginDialog.dispose();
                         showUserMenu();
+                        showMessage("Account Login Successfully");
                         return;
                     }
                 }
@@ -638,6 +640,7 @@ public class BankApp extends Frame {
                 String email = emailField.getText();
                 String password = passwordField.getText();
                 bank.createAccount(name, email, password, "Savings");
+                showMessage("Account created successfully.");
                 createUserDialog.dispose();
                 validate();
                 repaint();
@@ -681,6 +684,7 @@ public class BankApp extends Frame {
                 try {
                     int depositAmount = Integer.parseInt(depositText);
                     currentUser.deposit(depositAmount);
+                    showMessage("Successfully Deposit to " + depositAmount + "Taka");
                     depositUserDialog.dispose();
                 } catch (NumberFormatException ex) {
                     // Handle the case where the user entered invalid input for the deposit amount
@@ -719,6 +723,7 @@ public class BankApp extends Frame {
                 try {
                     int withdrawAmount = Integer.parseInt(withdrawText);
                     currentUser.withdraw(withdrawAmount);
+                    showMessage("Successfully Withdraw to " + withdrawAmount + "Taka");
                     withdrawUserDialog.dispose();
                 } catch (NumberFormatException ex) {
                     // Handle the case where the user entered invalid input for the deposit amount
@@ -797,6 +802,7 @@ public class BankApp extends Frame {
                     int transferAmount = Integer.parseInt(transferText);
                     int accountNumber = Integer.parseInt(accountText);
                     currentUser.transfer(transferAmount,accountNumber);
+                    showMessage("Successfully transfer " + transferAmount + "Taka to" + accountNumber + " Number");
                     depositUserDialog.dispose();
                 } catch (NumberFormatException ex) {
                     // Handle the case where the user entered invalid input for the deposit amount
@@ -837,6 +843,7 @@ public class BankApp extends Frame {
                 try {
                     int loanAmount = Integer.parseInt(loanText);
                     currentUser.takeLoan(loanAmount);
+                    showMessage("Successfully take loan " + loanAmount + "Taka");
                     loanUserDialog.dispose();
                 } catch (NumberFormatException ex) {
                     // Handle the case where the user entered invalid input for the deposit amount
@@ -866,12 +873,12 @@ public class BankApp extends Frame {
         userInfoDialog.setLayout(new GridLayout(Bank.accountList.size(), 1));
 
         
-        Label userLabel = new Label("Name: " + currentUser.name + "||||" +
-                             "Email: " + currentUser.email + "||||" +
-                             "Account Type: " + currentUser.accountType + "||||" +
-                             "Account Number: " + currentUser.accountNumber + "||||" +
-                             "Loan: " + currentUser.loans + "||||" + 
-                             "Account Balance" + currentUser.balance + "||||" +
+        Label userLabel = new Label("Name: " + currentUser.name + "||----||" +
+                             "Email: " + currentUser.email + "||----||" +
+                             "Account Type: " + currentUser.accountType + "||----||" +
+                             "Account Number: " + currentUser.accountNumber + "||----||" +
+                             "Loan: " + currentUser.loans + "||----||" + 
+                             "Account Balance" + currentUser.balance + "||----||" +
                              "Transaction History" + currentUser.transactionHistory);
         userInfoDialog.add(userLabel);
 
@@ -901,6 +908,7 @@ public class BankApp extends Frame {
             public void actionPerformed(ActionEvent e) {
                 int accountNumber = Integer.parseInt(accountNumberField.getText());
                 bank.deleteAccount(accountNumber);
+                showMessage("Successfully Delete Account " + accountNumber);
                 deleteUserDialog.dispose();
             }
         });
@@ -998,6 +1006,7 @@ public class BankApp extends Frame {
                 int accountNumber = Integer.parseInt(accountNumberField.getText());
                 boolean status = Boolean.parseBoolean(statusField.getText());
                 bank.loansStatus(accountNumber, status);
+                showMessage("Currently loan status is " + status);
                 loanStatusDialog.dispose();
             }
         });
